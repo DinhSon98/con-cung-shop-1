@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <style>
+        tbody {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        td {
+            flex-basis: 25%; /* Hiển thị 4 cột trên mỗi hàng */
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container mt-4">
+    <div>
+        <a th:href="@{/product/create}" class="btn btn-primary mb-3">Thêm mới</a>
+        <a th:href="@{'/product/list' +'?sortField=name&sortDir='+${reverseSortDir}}" class="btn btn-primary mb-3">Name</a>
+    </div>
+    <th:block th:if="${not products.isEmpty()}">
+        <div id="product-list" style="display: flex; justify-content: center; align-items: center;">
+            <table>
+                <tbody>
+                <tr th:each="product : ${products.content}">
+                    <td style="padding: 10px; text-align: center;">
+                        <img th:src="@{'/static/img/product/' + ${product.avatar}}" width="100" height="100" alt="Product image" />
+                        <br/>
+                        <a th:href="@{/product/detail/{id}(id=${product.id})}" th:text="${product.name}"></a>
+                        <br/>
+                        <p th:text="${product.price}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
+    <div class="pagination justify-content-center mt-3">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${not products.hasPrevious()} ? disabled : ''">
+                <a class="page-link" th:href="@{/product/list(page=${products.number} -1 , sortField=${sortField}, sortDir=${sortDir})}"  th:if="${products.hasPrevious()}">Previous</a>
+            </li>
+            <li class="page-item active">
+                <span class="page-link" th:text="${currentPage+1}"></span>
+            </li>
+            <li class="page-item">
+                <span class="page-link">/</span>
+            </li>
+            <li class="page-item">
+                <span class="page-link" th:text="${products.totalPages}"></span>
+            </li>
+            <li class="page-item" th:classappend="${not products.hasNext()} ? disabled : ''">
+                <a class="page-link" th:href="@{/product/list(page=${products.number} + 1, sortField=${sortField}, sortDir=${sortDir})}" th:if="${products.hasNext()}">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<header id="header" style="display: flex; justify-content: center;">
+  <img th:src="@{/static/img/shop/TOP.png}" width="100%" alt="img">
+</header>
+
+<nav  id="nav" class="navbar navbar-expand-lg navbar-light bg-light" style="cursor: default; display: flex; justify-content: center">
+  <div class="d-flex justify-content-center">
+    <a href="/home">
+      <img th:src="@{/static/img/shop/logo-home.png}" class="mr-3" width="100" height="auto">
+    </a>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Danh mục
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a th:href="@{/category/list}" class="dropdown-item"> Tất cả</a>
+        <a th:each="category : ${categoryList}" th:href="@{/product/search/{id}(id=${category.id})}" class="dropdown-item" th:text="${category.name}"></a>
+      </div>
+    </div>
+
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sản phẩm
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a th:href="@{/product/list}" class="dropdown-item"> Tất cả</a>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <form class="form-inline my-2 my-lg-0" action="/product/search" method="GET">
+        <input class="form-control mr-sm-2" name="searchTerm" placeholder="Bạn muốn mua gì?" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+      </form>
+
+    </div>
+
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Quản lý nhân sự
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a th:href="@{/user/list}" class="dropdown-item"> Tất cả</a>
+        <a th:each="role : ${roleList}" th:href="@{/user/search/{name}(name=${role.name})}" class="dropdown-item" th:text="${role.description}"></a>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${userPrincipal != null}">
+    <div class="d-flex justify-content-center">
+
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img th:src="@{'/static/img/user/' + ${userPrincipal.avatar}}" class="mr-3" width="50" height="auto" alt="img">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a th:href="@{/user/detail/{id}(id=${userPrincipal.id})}"class="dropdown-item">Thông tin cá nhân</a>
+          <a th:href="@{/logout}"class="dropdown-item">Đăng xuất</a>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div th:if="${userPrincipal == null}" th:hidden="true"></div>
+</nav>
+
+<!--    footer su dung relative -->
+<footer id="footerRelative" style="background-color: #f2f2f2; font-size: 14px; position: relative; bottom: 0; left: 0; width: 100%;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6" >
+        <h5>CÔNG TY CỔ PHẦN CON CƯNG</h5>
+        <ul style="color: dodgerblue">
+          <li>Email: cskh@concung.com</li>
+          <li>Số điện thoại: 028 7300 6609</li>
+          <li>Địa chỉ: 21K Nguyễn Văn Trỗi, P. 11, Q. Phú Nhuận, TP. HCM</li>
+        </ul>
+      </div>
+
+      <div class="col-md-3" style="justify-content: center">
+        <h5>Giờ hoạt động</h5>
+        <li style="color: dodgerblue">08:00 - 22:00</li>
+      </div>
+
+      <div class="col-md-3">
+        <h5>Hỗ trợ khách hàng</h5>
+        <ul style="justify-content: right">
+          <li><a href="#">Tra cứu hoá đơn</a></li>
+          <li><a href="#">Mua & giao nhận Online</a></li>
+          <li><a href="#">Qui định & hình thức thanh toán</a></li>
+          <li><a href="#">Đổi trả & Hoàn tiền</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--    footer su dung fixed -->
+<footer id="footerFixed" style="background-color: #f2f2f2; font-size: 14px; position: fixed; bottom: 0; left: 0; width: 100%;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6" >
+        <h5>CÔNG TY CỔ PHẦN CON CƯNG</h5>
+        <ul style="color: dodgerblue">
+          <li>Email: cskh@concung.com</li>
+          <li>Số điện thoại: 028 7300 6609</li>
+          <li>Địa chỉ: 21K Nguyễn Văn Trỗi, P. 11, Q. Phú Nhuận, TP. HCM</li>
+        </ul>
+      </div>
+
+      <div class="col-md-3" style="justify-content: center">
+        <h5>Giờ hoạt động</h5>
+        <li style="color: dodgerblue">08:00 - 22:00</li>
+      </div>
+
+      <div class="col-md-3">
+        <h5>Hỗ trợ khách hàng</h5>
+        <ul style="justify-content: right">
+          <li><a href="#">Tra cứu hoá đơn</a></li>
+          <li><a href="#">Mua & giao nhận Online</a></li>
+          <li><a href="#">Qui định & hình thức thanh toán</a></li>
+          <li><a href="#">Đổi trả & Hoàn tiền</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

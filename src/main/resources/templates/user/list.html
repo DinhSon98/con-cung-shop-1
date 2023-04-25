@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container mt-4">
+  <div>
+    <a th:href="@{/user/create}" class="btn btn-primary mb-3">Thêm nhân viên mới</a>
+  </div>
+  <div class="d-flex justify-content-center">
+    <form class="form-inline my-2 my-lg-0" action="/user/search" method="GET">
+      <input class="form-control mr-sm-2" name="searchTerm" placeholder="Tìm tên nhân viên?" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+    </form>
+
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Nhân viên</th>
+      <th scope="col" colspan="3">Tác vụ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="user : ${userList}">
+      <tr>
+        <td>
+          <img th:src="@{'/static/img/product/' + ${user.avatar}}" width="100" height="100" alt="User image" />
+          <br>
+          <p th:text="${user.fullname}"></p>
+        </td>
+        <td>
+          <a th:href="@{/user/detail/{id}(id=${user.id})}" class="btn btn-warning">Xem toàn bộ thông tin</a>
+        </td>
+        <td>
+          <a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-warning">Cập nhật vị trí</a>
+        </td>
+        <td>
+          <a th:href="@{/user/layoff/{id}(id=${user.id})}" class="btn btn-warning" onclick="confirmDelete(event)">Sa thải</a>
+        </td>
+      </tr>
+    </th:block>
+    </tbody>
+  </table>
+
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script>
+  function confirmDelete(event) {
+    event.preventDefault();
+    if (confirm("Bạn có chắc chắn xóa?")) {
+      window.location.href = event.target.href;
+    }
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

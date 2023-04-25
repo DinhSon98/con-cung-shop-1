@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <form name='registerForm' th:action="@{/user/update}" method='POST' enctype="multipart/form-data" th:object="${user}">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Thông tin nhân viên</h3>
+            <div>
+              <img th:src="@{'/static/img/user/' + ${user.avatar}}" width="100" height="100" alt="User image" />
+            </div>
+            <div>
+              <input type="hidden" th:field="*{id}">
+              <input type="hidden" th:field="*{activated}">
+              <input type="hidden" th:field="*{username}">
+            </div>
+            <div class="form-group">
+              <label for="fullname">Họ và tên</label>
+              <p type='text' th:text="*{fullname}"  th:field="*{fullname}" class="form-control" id="fullname" />
+            </div>
+            <div class="form-group">
+              <label for="role">Chức vụ</label>
+              <select name="role" id="role" class="form-control" required>
+                <option th:each="role : ${roleList}"
+                        th:value="${role.id}"
+                        th:text="${role.description}"
+                        th:field="*{role}">
+                </option>
+              </select>
+            </div>
+            <br>
+            <div>
+              <button name="submit" type="submit" class="btn btn-primary btn-block">Cập nhật</button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

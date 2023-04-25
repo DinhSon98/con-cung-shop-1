@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <form name='registerForm' th:action="@{/user/edit}" method='POST' enctype="multipart/form-data" th:object="${newUserDto}">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Cập nhật thông tin nhân viên</h3>
+            <div>
+              <img th:src="@{'/static/img/user/' + ${user.avatar}}" width="100" height="100" alt="User image" th:field="*{avatar}"/>
+              <input type="file" th:field="*{path}" id="avatar" accept="image/*" />
+            </div>
+            <div>
+              <input type="hidden" th:field="*{id}">
+              <input type="hidden" th:field="*{activated}">
+              <input type="hidden" th:field="*{username}">
+            </div>
+            <div class="form-group">
+              <label for="fullname">Họ và tên</label>
+              <input type='text' th:value="*{fullname}" th:field="*{fullname}" class="form-control" id="fullname" />
+            </div>
+            <div class="form-group">
+              <label for="password">Mật khẩu</label>
+              <input type='password' th:field="*{password}" class="form-control" id="password" required />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Chức vụ</label>
+              <p th:value="*{role.description}" th:field="*{role.description}" class="form-control" id="category" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type='text' th:value="*{email}" th:field="*{email}" class="form-control" id="email" />
+            </div>
+            <div class="form-group">
+              <label for="address">Địa chỉ</label>
+              <input type='text' th:value="*{address}" th:field="*{address}" class="form-control" id="address" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Số điện thoại</label>
+              <input type='text' th:value="*{phone}" th:field="*{phone}" class="form-control" id="phone" />
+            </div>
+            <br>
+            <div>
+              <button name="submit" type="submit" class="btn btn-primary btn-block">Cập nhật</button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script>
+  function confirmDelete(event) {
+    event.preventDefault();
+    if (confirm("Bạn có chắc chắn xóa?")) {
+      window.location.href = event.target.href;
+    }
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

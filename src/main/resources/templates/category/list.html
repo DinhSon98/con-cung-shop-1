@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container mt-4">
+    <div>
+        <a th:href="@{/category/create}" class="btn btn-primary mb-3">Thêm mới</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Loại sản phẩm</th>
+            <th scope="col" th:colspan="2">Tác vụ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="category : ${categoryList}">
+            <tr>
+                <td th:text="${category.name}"></td>
+                <td>
+                    <a th:href="@{/category/edit/{id}(id=${category.id})}" class="btn btn-warning">Cập nhật thông tin</a>
+                </td>
+                <td>
+                    <a th:href="@{/category/remove/{id}(id=${category.id})}" class="btn btn-warning" onclick="confirmDelete(event)">Xóa</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            window.location.href = event.target.href;
+        }
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

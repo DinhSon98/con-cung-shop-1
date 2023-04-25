@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Role</title>
+</head>
+<body>
+<h1>Create Role</h1>
+<p>
+  <a th:href="@{/role/list}">Role List</a>
+</p>
+<th:block th:if="${message}">
+  <p th:text="${message}"
+     style="color:lightgreen;margin:10px 0px;"></p>
+</th:block>
+<form th:action="@{/role/create}" th:object="${roleDto}" method="post">
+  <table>
+    <tr>
+      <td>Description:</td>
+      <td><input type="text" th:field="*{desc}"/></td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" th:field="*{name}"/></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Create Role"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

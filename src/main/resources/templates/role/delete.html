@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Delete Role</title>
+</head>
+<body>
+<h1>Delete Role</h1>
+<h2>Are you sure?</h2>
+<p>
+  <a th:href="@{/role/list}">Role List</a>
+</p>
+<form th:action="@{/role/delete}" th:object="${roleDto}" method="post">
+  <input th:type="hidden" name="id" th:field="*{id}">
+  <table>
+    <tr>
+      <td>Description:</td>
+      <td th:text="${roleDto.desc}"></td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td th:text="${roleDto.name}"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Delete Role"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

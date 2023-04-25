@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Thêm sản phẩm mới</h3>
+                    <form name='registerForm' th:action="@{/product/create}" method='POST' enctype="multipart/form-data" th:object="${product}">
+
+                        <div class="form-group">
+                            <label for="name">Tên sản phẩm</label>
+                            <input type='text' th:field="*{name}" class="form-control" id="name" required />
+                        </div>
+                        <div>
+                            <label for="category">Danh mục</label>
+                        <select name="category" id="category" class="form-control" required>
+                            <option th:each="category : ${categoryList}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}"
+                                    th:field="*{category}">
+                            </option>
+                        </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Mô tả</label>
+                            <input type='text' th:field="*{description}" class="form-control" id="description" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Giá</label>
+                            <input type='text' th:field="*{price}" class="form-control" id="price" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Số lựợng</label>
+                            <input type='text' th:field="*{quantity}" class="form-control" id="quantity" required />
+                        </div>
+                        <div>
+                            <label for="avatar" id="avatar-label">Ảnh</label>
+                            <input type="file" th:field="*{path}" id="avatar" accept="image/*" required>
+
+                        </div>
+                        <br>
+                        <div>
+                            <button name="submit" type="submit" class="btn btn-primary btn-block">Thêm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/fragment :: #header"></div>
+
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Tài khoản của bạn hiện nay đã bị khóa!</h1>
+          <form name='loginForm' th:action="@{/check-email}" method='POST' th:object="${userDto}">
+            <div class="form-group">
+              <label for="email">Nhập lại email để gửi yêu cầu kích hoạt lại tài khoản của bạn</label>
+              <input type='email' name='email' class="form-control" id="email" required />
+            </div>
+            <button name="submit" type="submit" class="btn btn-primary btn-block">Gửi</button>
+          </form>
+
+          <div id="successMessage" style="display: none; text-align: center; margin-top: 10px;">
+            <p class="text-success">Gửi thành công!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+  function showSuccessMessage() {
+    document.getElementById("successMessage").style.display = "block";
+    return true;
+  }
+</script>
+
+</body>
+</html>

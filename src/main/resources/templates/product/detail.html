@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div th:replace="/fragments/fragment :: #header"></div>
+<div th:replace="/fragments/fragment :: #nav"></div>
+
+
+<div class="container" th:object="${product}">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Thông tin sản phẩm</h3>
+                    <div>
+                        <img th:src="@{'/static/img/product/' + ${product.avatar}}" width="100" height="100" alt="Product image" />
+                    </div>
+                        <div class="form-group">
+                            <label for="name">Tên sản phẩm</label>
+                            <p type='text' th:text="*{name}" class="form-control" id="name" />
+                        </div>
+                    <div class="form-group">
+                        <label for="category">Danh mục</label>
+                        <p type='text' th:text="*{category.name}" th:field="*{category.name}" class="form-control" id="category" />
+                    </div>
+                        <div class="form-group">
+                            <label for="description">Mô tả</label>
+                            <p type='text' th:text="*{description}" class="form-control" id="description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Giá</label>
+                            <p type='text' th:text="*{price}" class="form-control" id="price" />
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Số lựợng</label>
+                            <p type='text' th:text="*{quantity}" class="form-control" id="quantity" />
+                        </div>
+                        <br>
+                        <div>
+                            <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-warning">Cập nhật thông tin</a>
+                            <a th:href="@{/product/remove/{id}(id=${product.id})}" class="btn btn-warning" onclick="confirmDelete(event)">Xóa</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="/fragments/fragment :: #footerRelative"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    function confirmDelete(event) {
+        event.preventDefault();
+        if (confirm("Bạn có chắc chắn xóa?")) {
+            window.location.href = event.target.href;
+        }
+    }
+</script>
+</body>
+</html>
